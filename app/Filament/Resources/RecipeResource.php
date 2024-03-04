@@ -60,6 +60,7 @@ class RecipeResource extends Resource
                 Select::make('recipe_moment_id')
                     ->relationship(name: 'moment', titleAttribute: 'title'),
                 SpatieMediaLibraryFileUpload::make('thumbnail')
+                    ->fetchFileInformation(false)
                     ->collection('recipes')
                     ->responsiveImages(),
                 Repeater::make('ingredients')
