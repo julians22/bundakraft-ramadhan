@@ -7,6 +7,8 @@ use App\Filament\Resources\RecipeResource\RelationManagers;
 use App\Models\Recipe;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -15,16 +17,24 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\Tags\Tag;
 
 class RecipeResource extends Resource
 {
     protected static ?string $model = Recipe::class;
+
+    protected static ?string $navigationGroup = 'Recipe Management';
+
+    protected static ?string $navigationLabel = 'All Recipes';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'icomoon-book';
 
@@ -37,9 +47,21 @@ class RecipeResource extends Resource
                     ->maxLength(120),
                 SpatieTagsInput::make('tags')
                     ->type('recipes')
+                    ->suggestions([
+                        __('5 Menit'),
+                        __('10 Menit'),
+                        __('15 Menit'),
+                        __('2 Orang'),
+                        __('3 Orang')
+                    ])
                     ->reorderable()
                     ->label('Tags')
                     ->required(),
+                Select::make('recipe_moment_id')
+                    ->relationship(name: 'moment', titleAttribute: 'title'),
+                SpatieMediaLibraryFileUpload::make('thumbnail')
+                    ->collection('recipes')
+                    ->responsiveImages(),
                 Repeater::make('ingredients')
                     ->simple(Textarea::make('value')),
                 Repeater::make('instruction')
@@ -60,6 +82,8 @@ class RecipeResource extends Resource
                 TextColumn::make('title')
                     ->searchable(),
                 SpatieTagsColumn::make('tags'),
+                SpatieMediaLibraryImageColumn::make('thumbnail')
+                    ->collection('recipes'),
                 IconColumn::make('status')
                     ->icon(fn (string $state): string => match ($state) {
                         '0' => 'heroicon-o-check-x-circle',
@@ -69,7 +93,7 @@ class RecipeResource extends Resource
                         '0' => 'danger',
                         '1' => 'success',
                     }),
-                TextColumn::make('moment')
+                TextColumn::make('moment.slug')
                     ->searchable(),
             ])
             ->filters([

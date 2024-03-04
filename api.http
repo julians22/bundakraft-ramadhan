@@ -1,0 +1,16 @@
+
+
+GET http://bundakraft-ramadhan.test:8080/api/recipes_by_moments
+content-type: application/json
+Accept: application/json
+
+{
+    "moment": "menu-alfamart-2024"
+}
+
+###
+
+GET http://bundakraft-ramadhan.test/api/user
+content-type: application/json
+Accept: application/json
+
