@@ -5,6 +5,7 @@ namespace App\Http\Resources\Campaign;
 use App\Http\Resources\TagResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class MenuAlfamart extends JsonResource
 {
@@ -15,6 +16,20 @@ class MenuAlfamart extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $people = null;
+        $time = null;
+
+        foreach ($this->tags as $tag) {
+
+            if (Str::afterLast($tag->slug, '-') === 'menit') {
+                $time = new TagResource($tag);
+            }
+
+            if (Str::afterLast($tag->slug, '-') === 'orang') {
+                $people = new TagResource($tag);
+            }
+        }
+
         return [
             'title' => $this->title,
             'slug' => $this->slug,
@@ -22,7 +37,10 @@ class MenuAlfamart extends JsonResource
             'instruction' => $this->instruction,
             'status' => $this->status,
             'moment' => $this->moment,
-            'tags' => TagResource::collection($this->tags),
+            'tags' => [
+                'orang' => $people,
+                'time' => $time
+            ],
             'creation_date' => $this->created_at,
             'media' => $this->getFirstMedia('recipes')
         ];
