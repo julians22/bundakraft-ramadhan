@@ -61,8 +61,7 @@ class RecipeResource extends Resource
                     ->relationship(name: 'moment', titleAttribute: 'title'),
                 SpatieMediaLibraryFileUpload::make('thumbnail')
                     ->fetchFileInformation(false)
-                    ->collection('recipes')
-                    ->responsiveImages(),
+                    ->collection('recipes'),
                 Repeater::make('ingredients')
                     ->simple(Textarea::make('value')),
                 Repeater::make('instruction')
