@@ -27,8 +27,7 @@ class Recipe extends Model implements HasMedia
         'status',
         'sort',
         'moment',
-        'recipe_moment_id',
-        ''
+        'recipe_moment_id'
     ];
 
     /**
@@ -39,7 +38,8 @@ class Recipe extends Model implements HasMedia
     protected $casts = [
         'status' => 'boolean',
         'ingredients' => 'array',
-        'instruction' => 'array'
+        'instruction' => 'array',
+        'video_url' => 'array'
     ];
 
     /**
