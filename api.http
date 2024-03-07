@@ -1,5 +1,15 @@
 
 
+GET http://bundakraft.democube.id/api/recipes_by_moments
+content-type: application/json
+Accept: application/json
+
+{
+    "moment": "menu-alfamart-2024"
+}
+
+###
+
 GET http://bundakraft-ramadhan.test/api/recipes_by_moments
 content-type: application/json
 Accept: application/json

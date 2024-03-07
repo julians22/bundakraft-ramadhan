@@ -18,3 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Production Unexpected File ignore
+error_log
+public/.user.ini
+public/php.ini
+storage/media-library

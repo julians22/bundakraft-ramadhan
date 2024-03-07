@@ -6,25 +6,32 @@ use App\Filament\Resources\RecipeResource\Pages;
 use App\Filament\Resources\RecipeResource\RelationManagers;
 use App\Models\Recipe;
 use Filament\Forms;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Spatie\Tags\Tag;
 
 class RecipeResource extends Resource
 {
@@ -42,36 +49,109 @@ class RecipeResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(120),
-                SpatieTagsInput::make('tags')
-                    ->type('recipes')
-                    ->suggestions([
-                        __('5 Menit'),
-                        __('10 Menit'),
-                        __('15 Menit'),
-                        __('2 Orang'),
-                        __('3 Orang')
-                    ])
-                    ->reorderable()
-                    ->label('Tags')
-                    ->required(),
-                Select::make('recipe_moment_id')
-                    ->relationship(name: 'moment', titleAttribute: 'title'),
-                SpatieMediaLibraryFileUpload::make('thumbnail')
-                    ->fetchFileInformation(false)
-                    ->collection('recipes'),
-                Repeater::make('ingredients')
-                    ->simple(Textarea::make('value')),
-                Repeater::make('instruction')
-                    ->simple(Textarea::make('value')),
-                Toggle::make('status')
-                    ->default(true)
-                    ->onIcon('heroicon-o-check-circle')
-                    ->offIcon('heroicon-o-x-circle')
-                    ->onColor('success')
-                    ->offColor('danger')
+                Grid::make([
+                    'default' => 1,
+                    'sm' => 2,
+                    'md' => 3,
+                    'lg' => 4,
+                    'xl' => 6,
+                    '2xl' => 8,
+                ])
+                ->schema([
+                    Section::make('Basic Information')
+                        ->id('basic-information')
+                        ->columnSpan([
+                            'default' => 1,
+                            'sm' => 2,
+                            'md' => 3,
+                            'lg' => 4,
+                            'xl' => 4,
+                            '2xl' => 6,
+                        ])
+                        ->columns(1)
+                        ->schema([
+                            TextInput::make('title')
+                                ->required()
+                                ->maxLength(120),
+                            RichEditor::make('description'),
+                            ComponentsBuilder::make('ingredients')
+                                ->blocks([
+                                    Block::make('ingredient')
+                                        ->schema([
+                                            TextInput::make('title'),
+                                            Repeater::make('items')
+                                                ->simple(Textarea::make('value')),
+
+                                        ])
+                                        ]),
+                            ComponentsBuilder::make('instruction')
+                                ->blocks([
+                                    Block::make('instruction')
+                                        ->schema([
+                                            TextInput::make('title'),
+                                            Repeater::make('items')
+                                                ->simple(Textarea::make('value')),
+
+                                        ])
+                                ])
+                        ]),
+                        Section::make('Advance Information')
+                            ->id('advance-information')
+                            ->columnSpan([
+                                'default' => 1,
+                                'sm' => 2,
+                                'md' => 3,
+                                'lg' => 4,
+                                'xl' => 2,
+                                '2xl' => 2,
+                            ])
+                            ->columns(1)
+                            ->schema([
+                                SpatieTagsInput::make('tags')
+                                    ->type('recipes')
+                                    ->suggestions([
+                                        __('5 Menit'),
+                                        __('10 Menit'),
+                                        __('15 Menit'),
+                                        __('2 Orang'),
+                                        __('3 Orang')
+                                    ])
+                                    ->reorderable()
+                                    ->label('Tags')
+                                    ->required(),
+                                Select::make('recipe_moment_id')
+                                    ->relationship(name: 'moment', titleAttribute: 'title'),
+                                SpatieMediaLibraryFileUpload::make('thumbnail')
+                                    ->fetchFileInformation(false)
+                                    ->image()
+                                    ->maxSize(2048)
+                                    ->collection('recipes'),
+
+                                Toggle::make('status')
+                                    ->default(true)
+                                    ->onIcon('heroicon-o-check-circle')
+                                    ->offIcon('heroicon-o-x-circle')
+                                    ->onColor('success')
+                                    ->offColor('danger'),
+                                ComponentsBuilder::make('video_url')
+                                        ->blockNumbers(false)
+                                        ->blocks([
+                                            Block::make('youtube_full_url')
+                                                ->maxItems(1)
+                                                ->schema([
+                                                    TextInput::make('youtube_full_url')
+                                                            ->url()
+                                                ]),
+                                            Block::make('youtube_id')
+                                                ->maxItems(1)
+                                                ->schema([
+                                                    TextInput::make('youtube_id')
+                                                ]),
+
+                                        ])
+                            ])
+                ])
+
             ]);
     }
 
@@ -98,10 +178,15 @@ class RecipeResource extends Resource
             ])
             ->filters([
                 Filter::make('status')
-                    ->query(fn (Builder $query): Builder => $query->where('status', true))
+                    ->query(fn (Builder $query): Builder => $query->where('status', true)),
+                SelectFilter::make('moment')
+                    ->relationship('moment', 'title')
+                    ->searchable()
+                    ->preload()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
