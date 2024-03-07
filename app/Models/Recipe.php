@@ -20,12 +20,15 @@ class Recipe extends Model implements HasMedia
     protected $fillable = [
         'title',
         'slug',
+        'description',
+        'video_url',
         'ingredients',
         'instruction',
         'status',
         'sort',
         'moment',
         'recipe_moment_id',
+        ''
     ];
 
     /**

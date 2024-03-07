@@ -33,6 +33,7 @@ class MenuAlfamart extends JsonResource
         return [
             'title' => $this->title,
             'slug' => $this->slug,
+            'description' => $this->description,
             'ingredients' => $this->ingredients,
             'instruction' => $this->instruction,
             'status' => $this->status,
@@ -42,7 +43,8 @@ class MenuAlfamart extends JsonResource
                 'time' => $time
             ],
             'creation_date' => $this->created_at,
-            'media' => $this->getFirstMedia('recipes')
+            'media' => $this->getFirstMedia('recipes'),
+            'video_url' => $this->video_url
         ];
     }
 }
