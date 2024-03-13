@@ -29,7 +29,7 @@ class RecipeController extends Controller
 
         // $query = $query->with('recipes');
 
-        return MenuAlfamart::collection($query->recipes);
+        return MenuAlfamart::collection($query->recipes->sortBy('sort'));
     }
 
     /**
