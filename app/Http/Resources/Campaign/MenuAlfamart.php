@@ -18,6 +18,7 @@ class MenuAlfamart extends JsonResource
     {
         $people = null;
         $time = null;
+        $porsi = null;
 
         foreach ($this->tags as $tag) {
 
@@ -27,6 +28,9 @@ class MenuAlfamart extends JsonResource
 
             if (Str::afterLast($tag->slug, '-') === 'orang') {
                 $people = new TagResource($tag);
+            }
+            if (Str::afterLast($tag->slug, '-') === 'porsi') {
+                $porsi = new TagResource($tag);
             }
         }
 
@@ -39,7 +43,7 @@ class MenuAlfamart extends JsonResource
             'status' => $this->status,
             'moment' => $this->moment,
             'tags' => [
-                'orang' => $people,
+                'orang' => $porsi,
                 'time' => $time
             ],
             'creation_date' => $this->created_at,
