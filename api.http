@@ -24,3 +24,22 @@ GET http://bundakraft-ramadhan.test/api/user
 content-type: application/json
 Accept: application/json
 
+###
+
+POST http://bundakraft-ramadhan.test/api/request-download
+content-type: application/json
+Accept: application/json
+
+{
+    "full_name": "Dean Abner Julian",
+    "phone_number": "08121856261",
+    "age": "28",
+    "email": "dabnerjulian@gmail.com",
+    "additional_information": {
+        //slug moment currently menu-alfamart-2024
+        "moment": "menu-alfamart-2024",
+        //recipe slug if, write all if the button clicked to the download
+        "recipe": "*"
+    }
+}
+
