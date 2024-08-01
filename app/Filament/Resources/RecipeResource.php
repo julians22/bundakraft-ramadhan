@@ -8,6 +8,7 @@ use App\Models\Recipe;
 use Filament\Forms;
 use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
@@ -121,6 +122,9 @@ class RecipeResource extends Resource
                                     ->required(),
                                 Select::make('recipe_moment_id')
                                     ->relationship(name: 'moment', titleAttribute: 'title'),
+                                CheckboxList::make('moments')
+                                    ->relationship('moments', 'title')
+                                    ->searchable(),
                                 SpatieMediaLibraryFileUpload::make('thumbnail')
                                     ->fetchFileInformation(false)
                                     ->image()
@@ -163,26 +167,30 @@ class RecipeResource extends Resource
                     ->searchable(),
                 SpatieTagsColumn::make('tags'),
                 SpatieMediaLibraryImageColumn::make('thumbnail')
+                    ->defaultImageUrl(url('/images/product_theme.png'))
                     ->collection('recipes'),
                 IconColumn::make('status')
                     ->icon(fn (string $state): string => match ($state) {
-                        '0' => 'heroicon-o-check-x-circle',
-                        '1' => 'heroicon-o-check-circle'
+                        '0' => 'heroicon-o-x-circle',
+                        '1' => 'heroicon-o-check-circle',
+                        default => 'heroicon-o-x-circle',
                     })
                     ->color(fn (string $state): string => match ($state) {
                         '0' => 'danger',
                         '1' => 'success',
+                        default => 'danger',
                     }),
-                TextColumn::make('moment.slug')
+                TextColumn::make('moments.title')
+                    ->badge()
                     ->searchable(),
             ])
             ->filters([
                 Filter::make('status')
                     ->query(fn (Builder $query): Builder => $query->where('status', true)),
-                SelectFilter::make('moment')
-                    ->relationship('moment', 'title')
+                SelectFilter::make('moments')
+                    ->relationship('moments', 'title')
                     ->searchable()
-                    ->preload()
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

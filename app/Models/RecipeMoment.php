@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RecipeMoment extends Model
@@ -32,13 +34,21 @@ class RecipeMoment extends Model
             ->saveSlugsTo('slug');
     }
 
+    // /**
+    //  * Get all of the recipes for the RecipeMoment
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    //  */
+    // public function recipes(): HasMany
+    // {
+    //     return $this->hasMany(Recipe::class, 'recipe_moment_id', 'id');
+    // }
+
     /**
      * Get all of the recipes for the RecipeMoment
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function recipes(): HasMany
+    public function recipes(): BelongsToMany
     {
-        return $this->hasMany(Recipe::class, 'recipe_moment_id', 'id');
+        return $this->belongsToMany(Recipe::class, 'recipe_has_moment' , 'recipe_moment_id', 'recipe_id');
     }
 }
