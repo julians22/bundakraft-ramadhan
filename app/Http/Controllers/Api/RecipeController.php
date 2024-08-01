@@ -27,11 +27,6 @@ class RecipeController extends Controller
 
         $query = RecipeMoment::findBySlug($moment);
 
-
-        return $query->recipes;
-
-        // $query = $query->with('recipes');
-
         return MenuAlfamart::collection($query->recipes->sortBy('sort'));
     }
 }
