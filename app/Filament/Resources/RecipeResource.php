@@ -120,8 +120,6 @@ class RecipeResource extends Resource
                                     ->reorderable()
                                     ->label('Tags')
                                     ->required(),
-                                Select::make('recipe_moment_id')
-                                    ->relationship(name: 'moment', titleAttribute: 'title'),
                                 CheckboxList::make('moments')
                                     ->relationship('moments', 'title')
                                     ->searchable(),
