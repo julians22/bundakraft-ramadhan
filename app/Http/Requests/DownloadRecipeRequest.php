@@ -22,11 +22,21 @@ class DownloadRecipeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'required|string|max:225',
-            'age' => 'sometimes|numeric',
-            'phone_number' => 'required|numeric|phone:ID',
-            'email' => 'required|email',
-            'additional_information' => 'sometimes',
+            'firstname' => 'required',
+            'lastname' => 'required|',
+            'email' => 'required',
+            'date_of_birth' => 'required',
+            'city' => 'required|',
+            'phone' => 'required',
+            'cid' => 'required',
+            'type_of_signup' => 'required',
+            'overall_opt_in_status' => 'required',
+            'tnc' => 'required',
+            'hutk' => 'required',
+            'latitude' => 'sometimes',
+            'longitude' => 'sometimes',
+            'page' => 'required',
+            'page_url' => 'required',
         ];
     }
 }

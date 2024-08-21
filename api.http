@@ -31,10 +31,21 @@ content-type: application/json
 Accept: application/json
 
 {
-    "full_name": "Dean Abner Julian",
-    "phone_number": "08121856261",
-    "age": "28",
-    "email": "dabnerjulian@gmail.com",
+    "firstname" : "Test",
+    "lastname" : "DC3",
+    "email" : "dean@designcub3.com",
+    "date_of_birth" : "22/12/1995",
+    "city" : "Jakarta Selatan",
+    "phone" : "628121856261",
+    "cid" : "GA.1.TEST",
+    "type_of_signup" : "Form",
+    "overall_opt_in_status" : "true",
+    "tnc" : "true",
+    "hutk" : "b478dcf1b67b8e2cff03d75de8c6e71e",
+    "latitude" : "",
+    "longitude" : "",
+    "page" : "https://bundakraft-homechef.democube.id/",
+    "page_url" : "Homechef",
     "additional_information": {
         //slug moment currently menu-alfamart-2024
         "moment": "menu-alfamart-2024",
