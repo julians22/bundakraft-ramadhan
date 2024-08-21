@@ -29,7 +29,7 @@ class DownloadRecipeRequest extends FormRequest
             'city' => 'required|',
             'phone' => 'required',
             'cid' => 'required',
-            'type_of_signup' => 'required',
+            'type_of_signup' => 'sometimes',
             'overall_opt_in_status' => 'required',
             'tnc' => 'required',
             'hutk' => 'required',
