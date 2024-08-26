@@ -50,7 +50,7 @@ class RequestDownloadForm extends Controller
             'city' => $validated['city'],
             'phone' => $validated['phone'],
             'cid' => $validated['cid'],
-            'type_of_signup' => $validated['type_of_signup'] ?? 'Form',
+            'type_of_signup' => $validated['type_of_signup'] ?? 'Manual signup',
             'overall_opt_in_status' => $validated['overall_opt_in_status'] ?? true,
             'tnc' => $validated['tnc'] ?? true,
             'hutk' => $validated['hutk'] ?? '',
