@@ -42,6 +42,9 @@ class RequestDownloadForm extends Controller
         $validated = $request->validated();
         $geoIp = geoip()->getLocation();
 
+        $tnc = $validated['tnc'] == true || $validated['tnc'] == 'true' || $validated['tnc'] == 'on' ? 'true' : 'false';
+        $overall_opt_in_status = $validated['overall_opt_in_status'] == true || $validated['overall_opt_in_status'] == 'true' || $validated['overall_opt_in_status'] == 'on' ? 'true' : 'false';
+
         $data = [
             'firstname' => $validated['firstname'],
             'lastname' => $validated['lastname'],
@@ -51,8 +54,8 @@ class RequestDownloadForm extends Controller
             'phone' => $validated['phone'],
             'cid' => $validated['cid'],
             'type_of_signup' => $validated['type_of_signup'] ?? 'Manual signup',
-            'overall_opt_in_status' => ($validated['overall_opt_in_status'] == true || $validated['overall_opt_in_status'] == 'true') ? 'true' : 'false',
-            'tnc' => ($validated['tnc'] == true || $validated['tnc'] == 'true') ? 'true' : 'false',
+            'overall_opt_in_status' => $overall_opt_in_status,
+            'tnc' => $tnc,
             'hutk' => $validated['hutk'] ?? '',
             'latitude' => $validated['latitude'] ?? $geoIp->lat,
             'longitude' => $validated['longitude'] ?? $geoIp->lon,
