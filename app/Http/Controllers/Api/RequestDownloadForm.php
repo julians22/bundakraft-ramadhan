@@ -52,7 +52,7 @@ class RequestDownloadForm extends Controller
             'phone' => $validated['phone'],
             'cid' => $validated['cid'],
             'type_of_signup' => $validated['type_of_signup'] ?? 'Manual signup',
-            'overall_opt_in_status' => $overall_opt_in_status,
+            'overall_opt_in_status' => (string) $overall_opt_in_status,
             'tnc' => $validated['tnc'],
             'hutk' => $validated['hutk'] ?? '',
             'latitude' => $validated['latitude'] ?? $geoIp->lat,

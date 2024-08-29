@@ -62,12 +62,12 @@ class HomechefLibrary
                 [
                     'objectTypeId' => '0-1',
                     'name' => 'tnc',
-                    'value' => (string)$data['tnc']
+                    'value' => (string) $data['tnc']
                 ],
                 [
                     'objectTypeId' => '0-1',
                     'name' => 'overall_opt_in_status',
-                    'value' => (string)$data['overall_opt_in_status']
+                    'value' => (string) $data['overall_opt_in_status']
                 ],
                 [
                     'objectTypeId' => '0-1',
