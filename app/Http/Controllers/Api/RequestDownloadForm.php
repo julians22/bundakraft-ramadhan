@@ -41,8 +41,6 @@ class RequestDownloadForm extends Controller
         $homeChef = new HomechefLibrary();
         $validated = $request->validated();
         $geoIp = geoip()->getLocation();
-
-        $tnc = $validated['tnc'] == true || $validated['tnc'] == 'true' || $validated['tnc'] == 'on' ? 'true' : 'false';
         $overall_opt_in_status = $validated['overall_opt_in_status'] == true || $validated['overall_opt_in_status'] == 'true' || $validated['overall_opt_in_status'] == 'on' ? 'true' : 'false';
 
         $data = [
@@ -55,7 +53,7 @@ class RequestDownloadForm extends Controller
             'cid' => $validated['cid'],
             'type_of_signup' => $validated['type_of_signup'] ?? 'Manual signup',
             'overall_opt_in_status' => $overall_opt_in_status,
-            'tnc' => $tnc,
+            'tnc' => $validated['tnc'],
             'hutk' => $validated['hutk'] ?? '',
             'latitude' => $validated['latitude'] ?? $geoIp->lat,
             'longitude' => $validated['longitude'] ?? $geoIp->lon,
