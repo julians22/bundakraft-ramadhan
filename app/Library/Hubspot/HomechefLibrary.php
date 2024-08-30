@@ -127,7 +127,7 @@ class HomechefLibrary
                     "communications" => [
                         [
                             "value" => true,
-                            "subscriptionTypeId" => 76440099,
+                            "subscriptionTypeId" => 12124569,
                             "text" => "Saya setuju untuk menerima informasi tentang komunikasi pemasaran dan promosi dari Mondelez International"
                         ]
                     ]
@@ -143,16 +143,6 @@ class HomechefLibrary
 
 
         $body = json_encode($body);
-
-        // Make Request
-        //  HTTP Laravel with raw body
-        // $response = Http::withHeaders($header)
-        //     ->withCookies([
-        //         '__cf_bm' => '0MPFBhjtEb2KVrKECUSfZ8kILFnl6KgnntKm2NrZYs4-1724211212-1.0.1.1-npWgUXZE4mdry4NSV2pzv6zlWrhIgVDZqN9m11x2gDhLLqxgcP9zquBNtDkPFCb2MiLi3pUgSmhLgEdyzhDq1w',
-        //         '_cfduid' => 'dMY5rLDHONYBKf_5R3GBK1snF3GrlhmnXPPKjhl4ux8-1724211212367-0.0.1.1-604800000',
-        //     ], '.hubspot.com')
-        //     ->withBody($body, 'application/json')
-        //     ->post($url);
 
         //  curl
         $ch = curl_init($url);
