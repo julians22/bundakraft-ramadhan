@@ -23,4 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/recipes_by_moments', [RecipeController::class, 'getByMoment']);
 
 Route::post('/request-download', [RequestDownloadForm::class, 'store']);
-Route::post('/request-download/test', [RequestDownloadForm::class, 'store_test']);
+// Route::post('/request-download/test', [RequestDownloadForm::class, 'store_test']);
