@@ -9,6 +9,7 @@ use App\Models\RequestDownload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RequestDownloadForm extends Controller
 {
@@ -57,6 +58,9 @@ class RequestDownloadForm extends Controller
             RequestDownload::create($formData);
 
         } catch (\Throwable $th) {
+
+            Log::error($th->getMessage());
+
             DB::rollBack();
         }
 
