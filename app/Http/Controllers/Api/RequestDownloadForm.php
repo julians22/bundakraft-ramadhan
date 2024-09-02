@@ -51,6 +51,7 @@ class RequestDownloadForm extends Controller
             $formData = [
                 'full_name' => $data['firstname'] . ' ' . $data['lastname'],
                 'age' => $birthDate,
+                'phone_number' => $data['phone'],
                 'email' => $data['email'],
                 'additional_information' => $data
             ];
