@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/products', [ProductController::class, 'index']);
 
+Route::get('products/{product}', [ProductController::class, 'show']);
+
 Route::get('/recipes_by_moments', [RecipeController::class, 'getByMoment']);
 
 Route::post('/request-download', [RequestDownloadForm::class, 'store']);
