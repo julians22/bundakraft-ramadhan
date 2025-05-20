@@ -15,7 +15,10 @@ class ProductController extends Controller
         // Get all products
         // $products = Product::all();
 
-        $products = Product::take(1)->latest()->get();
+        $products = Product::orderBy('order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->where('is_active', true)
+            ->get();
 
         // Return the products as a JSON response
         return response()->json($products);
