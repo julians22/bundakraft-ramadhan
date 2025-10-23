@@ -46,6 +46,7 @@ class MenuAlfamart extends JsonResource
                 'orang' => $porsi,
                 'time' => $time
             ],
+            'is_award' => $this->is_award ?? 0,
             'creation_date' => $this->created_at,
             'media' => $this->getFirstMedia('recipes'),
             'video_url' => $this->video_url

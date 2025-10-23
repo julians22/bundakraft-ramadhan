@@ -135,6 +135,12 @@ class RecipeResource extends Resource
                                     ->offIcon('heroicon-o-x-circle')
                                     ->onColor('success')
                                     ->offColor('danger'),
+                                Toggle::make('is_award')
+                                    ->default(false)
+                                    ->onIcon('heroicon-o-check-circle')
+                                    ->offIcon('heroicon-o-x-circle')
+                                    ->onColor('success')
+                                    ->offColor('danger'),
                                 ComponentsBuilder::make('video_url')
                                         ->blockNumbers(false)
                                         ->blocks([
