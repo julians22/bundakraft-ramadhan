@@ -1,0 +1,18 @@
+{
+    "DEPLOYPATH" : "/home/designcube3/demo_projects/cms-bundakraft",
+    "task" :  [
+        "app",
+        "bootstrap",
+        "config",
+        "database",
+        "lang",
+        "public",
+        "resources",
+        "routes",
+        "storage",
+        "tests",
+        "artisan",
+        "composer.json",
+        "composer.lock"
+    ]
+}
