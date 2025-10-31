@@ -26,6 +26,7 @@ class Recipe extends Model implements HasMedia
         'ingredients',
         'instruction',
         'status',
+        'is_award',
         'sort',
         'moment',
         'recipe_moment_id'
