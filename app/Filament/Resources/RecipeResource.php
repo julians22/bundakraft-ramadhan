@@ -28,6 +28,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -184,9 +185,21 @@ class RecipeResource extends Resource
                         '1' => 'success',
                         default => 'danger',
                     }),
+                ToggleColumn::make('is_award'),
+                TextColumn::make('sort')
+                    ->sortable(),
                 TextColumn::make('moments.title')
                     ->badge()
                     ->searchable(),
+                TextColumn::make('created_at')
+                    ->since()
+                    ->sortable()
+                    ->dateTimeTooltip(),
+                TextColumn::make('updated_at')
+                    ->since()
+                    ->dateTimeTooltip()
+                    ->sortable()
+
             ])
             ->filters([
                 Filter::make('status')
@@ -205,6 +218,7 @@ class RecipeResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->defaultSort('sort', 'asc')
             ->reorderable('sort');
     }
 
